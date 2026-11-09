@@ -176,7 +176,7 @@
                                     <h3 class="font-serif-heading text-2xl font-bold text-white">Noble Rice Platter</h3>
                                     <p class="text-gray-300 text-sm">Served with fried plantains & succulent grilled chicken</p>
                                 </div>
-                                <button onclick="addToCart('Noble Rice', 2500, 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=300&q=80')" class="bg-brand-gold hover:bg-amber-400 text-brand-charcoal font-bold p-3 rounded-full shadow">
+                                <button onclick="addToCart('Noble Rice Platter', 2500, 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=300&q=80')" class="bg-brand-gold hover:bg-amber-400 text-brand-charcoal font-bold p-3 rounded-full shadow">
                                     <i class="fa-solid fa-plus text-lg"></i>
                                 </button>
                             </div>
@@ -802,20 +802,20 @@
                     <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
                 </div>
 
-                <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Full Name *</label>
-                        <input type="text" required placeholder="e.g. Sandra Eke" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                        <input type="text" id="cust-name" name="name" required placeholder="e.g. Sandra Eke" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
                     </div>
 
                     <div class="grid sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Phone Number *</label>
-                            <input type="tel" required placeholder="080 1234 5678" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                            <input type="tel" id="cust-phone" name="phone" required placeholder="080 1234 5678" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
                         </div>
                         <div>
                             <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Fulfilling Branch</label>
-                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                            <select name="branch" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/50">
                                 <option>Victoria Island, Lagos</option>
                                 <option>Ikeja GRA, Lagos</option>
                                 <option>Wuse 2, Abuja</option>
@@ -825,12 +825,17 @@
 
                     <div>
                         <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Delivery Address *</label>
-                        <textarea rows="2" required placeholder="Enter street address, building number & landmark..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50"></textarea>
+                        <textarea rows="2" id="cust-address" name="address" required placeholder="Enter street address, building number & landmark..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Order Notes (Optional)</label>
+                        <input type="text" id="cust-notes" name="notes" placeholder="e.g. Extra pepper sauce, call on arrival" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
                     </div>
 
                     <div>
                         <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Payment Method</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                        <select name="payment" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/50">
                             <option>Pay on Delivery (Cash/POS)</option>
                             <option>Debit Card / Paystack</option>
                             <option>Bank Transfer</option>
@@ -1018,6 +1023,43 @@
         ];
 
         let cart = [];
+
+        // Local Storage DB Backup Manager
+        const MadamCassDB = {
+            saveOrder(order) {
+                try {
+                    const orders = JSON.parse(localStorage.getItem('madamcass_orders') || '[]');
+                    orders.push(order);
+                    localStorage.setItem('madamcass_orders', JSON.stringify(orders));
+                } catch (e) {
+                    console.warn('LocalStorage save failed:', e);
+                }
+                return order;
+            }
+        };
+
+        // Live Backend API Integration
+        const BACKEND_URL = 'https://madamcoss-1.onrender.com';
+
+        const MadamCassAPI = {
+            async placeOrder(orderData) {
+                try {
+                    const localOrder = MadamCassDB.saveOrder(orderData);
+                    const response = await fetch(`${BACKEND_URL}/api/orders`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(orderData)
+                    });
+                    if (!response.ok) throw new Error('Render API returned error status');
+                    const serverData = await response.json();
+                    console.log('Order saved to Render server:', serverData);
+                    return { success: true, order: localOrder };
+                } catch (err) {
+                    console.warn('Render server fallback to local storage:', err);
+                    return { success: true, order: MadamCassDB.saveOrder(orderData) };
+                }
+            }
+        };
 
         // Tab Navigation
         function switchTab(tabId) {
@@ -1213,32 +1255,31 @@
             if (modal) modal.classList.add('hidden');
         }
 
-       async function handleCheckoutSubmit(e) {
-    e.preventDefault();
+        async function handleCheckoutSubmit(e) {
+            e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const orderData = {
-        id: 'MC-' + Math.floor(100000 + Math.random() * 900000),
-        items: [...cart],
-        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        customer: {
-            name: formData.get('name') || document.getElementById('cust-name')?.value || 'Guest',
-            phone: formData.get('phone') || document.getElementById('cust-phone')?.value || 'N/A',
-            address: formData.get('address') || document.getElementById('cust-address')?.value || 'N/A',
-            notes: formData.get('notes') || document.getElementById('cust-notes')?.value || ''
-        },
-        timestamp: new Date().toISOString()
-    };
+            const formData = new FormData(e.target);
+            const orderData = {
+                id: 'MC-' + Math.floor(100000 + Math.random() * 900000),
+                items: [...cart],
+                total: cart.reduce((sum, item) => sum + (item.price * item.qty), 0),
+                customer: {
+                    name: formData.get('name') || document.getElementById('cust-name')?.value || 'Guest',
+                    phone: formData.get('phone') || document.getElementById('cust-phone')?.value || 'N/A',
+                    address: formData.get('address') || document.getElementById('cust-address')?.value || 'N/A',
+                    notes: formData.get('notes') || document.getElementById('cust-notes')?.value || ''
+                },
+                timestamp: new Date().toISOString()
+            };
 
-    // Send the order to your live Render backend server!
-    await MadamCassAPI.placeOrder(orderData);
+            await MadamCassAPI.placeOrder(orderData);
 
-    showToast(`Order ${orderData.id} placed successfully!`);
-    cart = [];
-    updateCartUI();
-    closeCheckoutModal();
-    e.target.reset();
-}
+            showToast(`Order ${orderData.id} placed successfully!`);
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+            e.target.reset();
+        }
 
         function handleContactSubmit(e) {
             e.preventDefault();
@@ -1296,31 +1337,9 @@
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
-// Live Backend API Integration
-const BACKEND_URL = 'https://madamcoss-1.onrender.com';
 
-const MadamCassAPI = {
-    async placeOrder(orderData) {
-        try {
-            const localOrder = MadamCassDB.saveOrder(orderData);
-            const response = await fetch(`${BACKEND_URL}/api/orders`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(orderData)
-            });
-            if (!response.ok) throw new Error('Render API returned error status');
-            const serverData = await response.json();
-            console.log('Order saved to Render server:', serverData);
-            return { success: true, order: localOrder };
-        } catch (err) {
-            console.warn('Render server fallback to local storage:', err);
-            return { success: true, order: MadamCassDB.saveOrder(orderData) };
-        }
-    }
-};
-
-// Global Initialization
-window.addEventListener('DOMContentLoaded', () => {
+        // Global Initialization
+        window.addEventListener('DOMContentLoaded', () => {
             renderMenu(menuItems);
             updateCartUI();
             setFormRating(5);
