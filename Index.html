@@ -1,0 +1,767 @@
+<!-- ... existing code ... -->
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2 font-medium text-gray-700">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition font-semibold text-brand-red">Home</button>
+                    <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">About Us</button>
+                    <button onclick="switchTab('services')" id="nav-services" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Services</button>
+                    <button onclick="switchTab('menu')" id="nav-menu" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Menu & Order</button>
+                    <button onclick="switchTab('reviews')" id="nav-reviews" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Reviews</button>
+                    <button onclick="switchTab('outlets')" id="nav-outlets" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Outlets</button>
+                    <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Contact</button>
+                </nav>
+
+                <!-- Header Actions (Cart, Track & Order Button) -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button onclick="openOrderTracker()" class="p-2.5 text-gray-700 hover:text-brand-red hover:bg-amber-50 rounded-full transition flex items-center gap-1.5 text-xs font-bold" title="Track Live Order">
+                        <i class="fa-solid fa-truck-fast text-base text-brand-gold"></i>
+                        <span class="hidden lg:inline">Track Order</span>
+                    </button>
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 text-gray-700 hover:text-brand-red hover:bg-amber-50 rounded-full transition" title="View Cart">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-counter" class="absolute -top-1 -right-1 bg-brand-red text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
+                    </button>
+                    <button onclick="switchTab('menu')" class="bg-brand-red hover:bg-brand-darkred text-white font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-utensils text-xs"></i>
+                        <span>Order Now</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu & Cart Buttons -->
+<!-- ... existing code ... -->
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Home</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">About Us</button>
+            <button onclick="switchTab('services'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Services</button>
+            <button onclick="switchTab('menu'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Menu & Online Ordering</button>
+            <button onclick="switchTab('reviews'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Customer Reviews</button>
+            <button onclick="switchTab('outlets'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Our Outlets</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Contact Us</button>
+            <button onclick="openOrderTracker(); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-brand-red font-bold">
+                <i class="fa-solid fa-truck-fast mr-2 text-brand-gold"></i>Track Live Order
+            </button>
+            <div class="pt-2">
+                <button onclick="switchTab('menu'); toggleMobileMenu();" class="w-full bg-brand-red text-white font-bold py-3 rounded-lg shadow text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Order Online Now</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN PAGE CONTAINER -->
+    <main class="flex-grow">
+<!-- ... existing code ... -->
+        <!-- ================= PAGE 7: CONTACT US ================= -->
+        <div id="page-contact" class="tab-content">
+            <!-- ... existing contact content ... -->
+        </div>
+
+        <!-- ================= PAGE 8: ADMIN BACKEND DASHBOARD ================= -->
+        <div id="page-admin" class="tab-content">
+            <div class="bg-brand-charcoal text-white py-10 px-4">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="text-brand-gold font-bold text-xs uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full">Backend Management Console</span>
+                        <h1 class="font-serif-heading text-3xl sm:text-4xl font-bold mt-2">MadamCass Store Operations</h1>
+                        <p class="text-gray-400 text-xs mt-1">Live order dispatching, status updates, and kitchen workflow management.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="loadAdminOrders()" class="bg-brand-red hover:bg-brand-darkred text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-arrows-rotate"></i> Refresh API
+                        </button>
+                        <button onclick="switchTab('home')" class="bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">
+                            Back to Storefront
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-10 space-y-8">
+                <!-- Metrics Bar -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase">Total Backend Orders</span>
+                            <div id="admin-total-orders" class="text-3xl font-bold text-gray-900 mt-1">0</div>
+                        </div>
+                        <div class="w-12 h-12 bg-red-50 text-brand-red rounded-xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase">Kitchen Active</span>
+                            <div id="admin-active-orders" class="text-3xl font-bold text-brand-gold mt-1">0</div>
+                        </div>
+                        <div class="w-12 h-12 bg-amber-50 text-brand-gold rounded-xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase">Total Gross Sales</span>
+                            <div id="admin-gross-sales" class="text-3xl font-bold text-emerald-600 mt-1">₦0</div>
+                        </div>
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-naira-sign"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase">Avg Response Time</span>
+                            <div class="text-3xl font-bold text-gray-900 mt-1">12 min</div>
+                        </div>
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                        <h3 class="font-serif-heading text-xl font-bold text-gray-900">Live Kitchen Orders Queue</h3>
+                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Backend Websocket Connected
+                        </span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-gray-50 border-b border-gray-100 uppercase text-gray-400 font-bold tracking-wider">
+                                    <th class="p-4">Order ID</th>
+                                    <th class="p-4">Customer & Phone</th>
+                                    <th class="p-4">Outlet & Address</th>
+                                    <th class="p-4">Items Summary</th>
+                                    <th class="p-4">Amount</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-table-body" class="divide-y divide-gray-100 text-gray-700">
+                                <!-- Dynamic order rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- LIVE ORDER TRACKER MODAL -->
+    <div id="tracker-modal" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true">
+        <div onclick="closeOrderTracker()" class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"></div>
+        <div class="min-h-screen px-4 text-center flex items-center justify-center p-4">
+            <div class="relative bg-white rounded-3xl max-w-lg w-full p-8 text-left shadow-2xl overflow-hidden transform transition-all my-8 z-10 border border-gray-100">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-truck-fast text-brand-red text-xl"></i>
+                        <h3 class="font-serif-heading text-2xl font-bold text-gray-900">Live Order Tracker</h3>
+                    </div>
+                    <button onclick="closeOrderTracker()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex gap-2">
+                        <input type="text" id="tracker-input-id" placeholder="Enter Order ID (e.g. MC-849201)" class="flex-grow px-4 py-3 rounded-xl border border-gray-200 text-sm uppercase focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                        <button onclick="searchLiveOrder()" class="bg-brand-red hover:bg-brand-darkred text-white font-bold px-5 py-3 rounded-xl text-sm transition">
+                            Track
+                        </button>
+                    </div>
+
+                    <!-- Tracker Progress Result Container -->
+                    <div id="tracker-result-container" class="bg-gray-50 p-6 rounded-2xl border border-gray-100 space-y-6 hidden">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-gray-400">Order Reference</span>
+                                <h4 id="track-order-id" class="font-serif-heading text-xl font-bold text-brand-red">MC-849201</h4>
+                                <p id="track-customer-info" class="text-xs text-gray-500 mt-0.5">Sandra Eke • Ikeja GRA</p>
+                            </div>
+                            <span id="track-status-badge" class="bg-amber-100 text-brand-darkred font-bold text-xs px-3 py-1 rounded-full">Preparation</span>
+                        </div>
+
+                        <!-- Progress Steps -->
+                        <div class="space-y-4 relative before:absolute before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-200">
+                            <div class="flex items-center gap-4 relative z-10">
+                                <div id="step-received-icon" class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shadow">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-gray-900">Order Received & Approved</h5>
+                                    <p class="text-[11px] text-gray-500">Sent to kitchen for preparation</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 relative z-10">
+                                <div id="step-prep-icon" class="w-8 h-8 rounded-full bg-brand-gold text-brand-charcoal flex items-center justify-center text-xs font-bold shadow">
+                                    <i class="fa-solid fa-fire"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-gray-900">Kitchen Preparation</h5>
+                                    <p class="text-[11px] text-gray-500">Chef is packaging hot items</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 relative z-10">
+                                <div id="step-delivery-icon" class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-xs shadow">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-gray-900">Out for Delivery / Ready for Pickup</h5>
+                                    <p class="text-[11px] text-gray-500">Rider dispatched to your address</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-200 flex justify-between items-center text-xs font-semibold">
+                            <span class="text-gray-500">Total Order Cost:</span>
+                            <span id="track-order-amount" class="text-brand-red font-bold text-base">₦0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+<!-- ... existing code ... -->
+        <div class="border-t border-gray-800 py-6 text-center text-xs text-gray-500 flex justify-between items-center max-w-7xl mx-auto px-4">
+            <p>&copy; 1983 - 2026 MadamCass Restaurant & Bakery Nigeria. All Rights Reserved.</p>
+            <button onclick="switchTab('admin'); loadAdminOrders();" class="text-gray-600 hover:text-amber-400 transition text-[11px] flex items-center gap-1">
+                <i class="fa-solid fa-lock text-[9px]"></i> Admin Backend
+            </button>
+        </div>
+    </footer>
+
+    <!-- APPLICATION LOGIC & BACKEND API CONTROLLER JS -->
+    <script>
+        // BACKEND PERSISTENT SIMULATED DATABASE & API CONTROLLER MODULE
+        const MadamCassDB = {
+            STORAGE_KEYS: {
+                ORDERS: 'madamcass_db_orders_v1',
+                REVIEWS: 'madamcass_db_reviews_v1',
+                CART: 'madamcass_db_cart_v1'
+            },
+            init() {
+                if (!localStorage.getItem(this.STORAGE_KEYS.ORDERS)) {
+                    const sampleOrders = [
+                        {
+                            id: 'MC-849201',
+                            customer: 'Sandra Eke',
+                            phone: '08012345678',
+                            branch: 'Ikeja GRA, Lagos',
+                            address: '45 Isaac John St, Ikeja',
+                            items: [{ name: 'Noble Rice Platter', qty: 2, price: 2500 }, { name: 'Chilled Zobo Drink', qty: 2, price: 800 }],
+                            subtotal: 6600,
+                            status: 'Kitchen Prep',
+                            createdAt: new Date(Date.now() - 15 * 60000).toISOString()
+                        },
+                        {
+                            id: 'MC-193842',
+                            customer: 'Tunde Bakare',
+                            phone: '08098765432',
+                            branch: 'Victoria Island, Lagos',
+                            address: 'Plot 14 Adeola Odeku, VI',
+                            items: [{ name: 'Ofada Rice & Ayamase Sauce', qty: 1, price: 4500 }],
+                            subtotal: 4500,
+                            status: 'Out for Delivery',
+                            createdAt: new Date(Date.now() - 40 * 60000).toISOString()
+                        }
+                    ];
+                    localStorage.setItem(this.STORAGE_KEYS.ORDERS, JSON.stringify(sampleOrders));
+                }
+            },
+            getOrders() {
+                this.init();
+                return JSON.parse(localStorage.getItem(this.STORAGE_KEYS.ORDERS) || '[]');
+            },
+            saveOrder(newOrder) {
+                const orders = this.getOrders();
+                orders.unshift(newOrder);
+                localStorage.setItem(this.STORAGE_KEYS.ORDERS, JSON.stringify(orders));
+                return newOrder;
+            },
+            updateOrderStatus(orderId, status) {
+                const orders = this.getOrders();
+                const target = orders.find(o => o.id === orderId);
+                if (target) {
+                    target.status = status;
+                    localStorage.setItem(this.STORAGE_KEYS.ORDERS, JSON.stringify(orders));
+                }
+                return target;
+            }
+        };
+
+        // ASYNCHRONOUS API SERVICE CONTROLLER LAYER
+        const MadamCassAPI = {
+            async fetchMenu() {
+                return new Promise(resolve => setTimeout(() => resolve(menuItems), 100));
+            },
+            async createOrder(orderPayload) {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        const saved = MadamCassDB.saveOrder(orderPayload);
+                        resolve({ success: true, order: saved });
+                    }, 300);
+                });
+            },
+            async getOrderById(orderId) {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        const orders = MadamCassDB.getOrders();
+                        const found = orders.find(o => o.id.toUpperCase() === orderId.toUpperCase());
+                        resolve(found || null);
+                    }, 200);
+                });
+            },
+            async updateStatus(orderId, status) {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        const updated = MadamCassDB.updateOrderStatus(orderId, status);
+                        resolve({ success: true, order: updated });
+                    }, 200);
+                });
+            }
+        };
+
+        // Data Structures
+        const menuItems = [
+            { id: 1, name: 'Noble Rice Platter', price: 2500, category: 'rice', img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80', desc: 'Signature seasoned rice served with fried plantains and grilled chicken' },
+            { id: 2, name: 'Suya Spaghetti', price: 3500, category: 'pasta', img: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281862?auto=format&fit=crop&w=600&q=80', desc: 'Wok-tossed spaghetti infused with spicy suya steak strips & veggies' },
+            { id: 3, name: 'Ofada Rice & Ayamase Sauce', price: 4500, category: 'rice', img: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80', desc: 'Unpolished local rice with green pepper bleached palm oil sauce, boiled egg, & assorted meat' },
+            { id: 4, name: 'Pounded Yam & Egusi Soup', price: 4200, category: 'swallow', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80', desc: 'Smooth, fluffy pounded yam served with rich goat meat melon seed soup' },
+            { id: 5, name: 'Asun Rice Combo', price: 4000, category: 'rice', img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80', desc: 'Spicy peppered goat meat diced over fragrant smokey Jollof rice' },
+            { id: 6, name: 'Traditional Moi Moi', price: 1000, category: 'pasta', img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80', desc: 'Steamed bean pudding made with boiled eggs & flaked fish' },
+            { id: 7, name: 'Chilled Zobo Drink', price: 800, category: 'drinks', img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80', desc: 'Refreshingly ice-chilled natural hibiscus blossom brew with ginger & pineapple' },
+            { id: 8, name: 'MadamCass Meat Pie (2 Pcs)', price: 1500, category: 'pasta', img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80', desc: 'Golden flaky pastry filled with minced beef, potatoes, and spices' }
+        ];
+
+        let cart = [];
+
+        // Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            const selectedTab = document.getElementById(`page-${tabId}`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-brand-red', 'bg-amber-50', 'font-semibold');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('text-brand-red', 'bg-amber-50', 'font-semibold');
+            }
+
+            if (tabId === 'admin') {
+                loadAdminOrders();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-xmark');
+                }
+            }
+        }
+
+        // Menu Search & Filter
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-grid');
+            if (!grid) return;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500">
+                        <i class="fa-solid fa-utensils text-4xl mb-3 text-gray-300"></i>
+                        <p class="font-medium">No dishes match your search query.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = items.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between border border-gray-100">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-full shadow">₦${item.price.toLocaleString()}</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif-heading font-bold text-lg text-gray-900">${item.name}</h3>
+                            <p class="text-gray-500 text-xs mt-2 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="addToCart('${item.name.replace(/'/g, "\\'")}', ${item.price}, '${item.img}')" class="w-full bg-amber-50 hover:bg-brand-red text-brand-red hover:text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm border border-amber-200">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>Add to Bag</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterMenu(category, event) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-red', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.remove('bg-white', 'text-gray-700');
+                event.currentTarget.classList.add('bg-brand-red', 'text-white');
+            }
+
+            if (category === 'all') {
+                renderMenu(menuItems);
+            } else {
+                const filtered = menuItems.filter(item => item.category === category);
+                renderMenu(filtered);
+            }
+        }
+
+        function handleMenuSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+                renderMenu(menuItems);
+                return;
+            }
+            const filtered = menuItems.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.desc.toLowerCase().includes(query)
+            );
+            renderMenu(filtered);
+        }
+
+        // Cart Actions
+        function addToCart(name, price, img) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, img, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`Added ${name} to your bag!`);
+        }
+
+        function updateCartQty(name, delta) {
+            const itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += delta;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            const counterDesktop = document.getElementById('cart-counter');
+            if (counterDesktop) counterDesktop.innerText = totalCount;
+
+            const counterMobile = document.getElementById('cart-counter-mobile');
+            if (counterMobile) counterMobile.innerText = totalCount;
+
+            const cartContainer = document.getElementById('cart-items');
+            if (cartContainer) {
+                if (cart.length === 0) {
+                    cartContainer.innerHTML = `
+                        <div class="text-center py-16 text-gray-400">
+                            <i class="fa-solid fa-basket-shopping text-5xl mb-3"></i>
+                            <p class="text-sm font-medium">Your order bag is currently empty.</p>
+                            <button onclick="switchTab('menu'); toggleCartDrawer();" class="mt-4 inline-block text-xs font-bold text-brand-red underline">Browse Menu</button>
+                        </div>
+                    `;
+                } else {
+                    cartContainer.innerHTML = cart.map(item => `
+                        <div class="flex items-center gap-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <img src="${item.img}" class="w-14 h-14 object-cover rounded-lg shrink-0">
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-xs text-gray-900">${item.name}</h4>
+                                <span class="text-xs text-brand-red font-semibold">₦${(item.price * item.qty).toLocaleString()}</span>
+                            </div>
+                            <div class="flex items-center border border-gray-300 rounded-lg bg-white">
+                                <button onclick="updateCartQty('${item.name.replace(/'/g, "\\'")}', -1)" class="px-2.5 py-1 text-gray-600 hover:bg-gray-100 text-xs font-bold">-</button>
+                                <span class="px-2 text-xs font-bold text-gray-800">${item.qty}</span>
+                                <button onclick="updateCartQty('${item.name.replace(/'/g, "\\'")}', 1)" class="px-2.5 py-1 text-gray-600 hover:bg-gray-100 text-xs font-bold">+</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            const subtotalElem = document.getElementById('cart-subtotal');
+            if (subtotalElem) {
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                subtotalElem.innerText = `₦${subtotal.toLocaleString()}`;
+            }
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            if (drawer) {
+                drawer.classList.toggle('hidden');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Your order bag is empty!');
+                return;
+            }
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const totalValElem = document.getElementById('checkout-total-val');
+            if (totalValElem) totalValElem.innerText = `₦${subtotal.toLocaleString()}`;
+
+            toggleCartDrawer();
+            const modal = document.getElementById('checkout-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        async function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const orderId = 'MC-' + Math.floor(100000 + Math.random() * 900000);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            
+            const newOrderPayload = {
+                id: orderId,
+                customer: form.querySelector('input[type="text"]').value,
+                phone: form.querySelector('input[type="tel"]').value,
+                branch: form.querySelector('select').value,
+                address: form.querySelector('textarea').value,
+                items: [...cart],
+                subtotal: subtotal,
+                status: 'Received',
+                createdAt: new Date().toISOString()
+            };
+
+            const response = await MadamCassAPI.createOrder(newOrderPayload);
+            if (response.success) {
+                showToast(`Order ${orderId} submitted to Kitchen API!`);
+                cart = [];
+                updateCartUI();
+                closeCheckoutModal();
+                form.reset();
+
+                // Open Order Tracker automatically with the new ID
+                openOrderTracker(orderId);
+            }
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast('Thank you! Message sent to MadamCass API.');
+            e.target.reset();
+        }
+
+        // Live Order Tracker Functions
+        function openOrderTracker(prefillId = '') {
+            const modal = document.getElementById('tracker-modal');
+            if (modal) modal.classList.remove('hidden');
+            if (prefillId) {
+                const input = document.getElementById('tracker-input-id');
+                if (input) input.value = prefillId;
+                searchLiveOrder();
+            }
+        }
+
+        function closeOrderTracker() {
+            const modal = document.getElementById('tracker-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        async function searchLiveOrder() {
+            const input = document.getElementById('tracker-input-id');
+            if (!input || !input.value.trim()) {
+                showToast('Please enter a valid Order ID');
+                return;
+            }
+
+            const orderId = input.value.trim();
+            const order = await MadamCassAPI.getOrderById(orderId);
+            const container = document.getElementById('tracker-result-container');
+
+            if (!order) {
+                if (container) container.classList.add('hidden');
+                showToast(`Order ID ${orderId} not found in database.`);
+                return;
+            }
+
+            if (container) container.classList.remove('hidden');
+            
+            document.getElementById('track-order-id').innerText = order.id;
+            document.getElementById('track-customer-info').innerText = `${order.customer} • ${order.branch}`;
+            document.getElementById('track-order-amount').innerText = `₦${order.subtotal.toLocaleString()}`;
+            
+            const badge = document.getElementById('track-status-badge');
+            if (badge) badge.innerText = order.status;
+
+            // Update Progress Step Icons
+            const stepPrep = document.getElementById('step-prep-icon');
+            const stepDelivery = document.getElementById('step-delivery-icon');
+
+            if (order.status === 'Kitchen Prep') {
+                stepPrep.className = "w-8 h-8 rounded-full bg-brand-gold text-brand-charcoal flex items-center justify-center text-xs font-bold shadow";
+                stepDelivery.className = "w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-xs shadow";
+            } else if (order.status === 'Out for Delivery' || order.status === 'Delivered') {
+                stepPrep.className = "w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shadow";
+                stepDelivery.className = "w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shadow";
+            }
+        }
+
+        // Admin Backend Operations
+        async function loadAdminOrders() {
+            const orders = MadamCassDB.getOrders();
+            const tbody = document.getElementById('admin-orders-table-body');
+            if (!tbody) return;
+
+            const totalOrdersElem = document.getElementById('admin-total-orders');
+            const activeOrdersElem = document.getElementById('admin-active-orders');
+            const grossSalesElem = document.getElementById('admin-gross-sales');
+
+            if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
+            if (activeOrdersElem) activeOrdersElem.innerText = orders.filter(o => o.status !== 'Delivered').length;
+            
+            const totalGross = orders.reduce((sum, o) => sum + o.subtotal, 0);
+            if (grossSalesElem) grossSalesElem.innerText = `₦${totalGross.toLocaleString()}`;
+
+            tbody.innerHTML = orders.map(order => `
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="p-4 font-bold text-brand-red">${order.id}</td>
+                    <td class="p-4">
+                        <div class="font-semibold text-gray-900">${order.customer}</div>
+                        <div class="text-[10px] text-gray-500">${order.phone}</div>
+                    </td>
+                    <td class="p-4">
+                        <div class="font-medium text-gray-800">${order.branch}</div>
+                        <div class="text-[10px] text-gray-500 max-w-xs truncate">${order.address}</div>
+                    </td>
+                    <td class="p-4 font-medium">
+                        ${order.items.map(i => `${i.qty}x ${i.name}`).join(', ')}
+                    </td>
+                    <td class="p-4 font-bold text-gray-900">₦${order.subtotal.toLocaleString()}</td>
+                    <td class="p-4">
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                            order.status === 'Delivered' ? 'bg-emerald-100 text-emerald-800' :
+                            order.status === 'Out for Delivery' ? 'bg-blue-100 text-blue-800' :
+                            'bg-amber-100 text-amber-800'
+                        }">
+                            ${order.status}
+                        </span>
+                    </td>
+                    <td class="p-4">
+                        <select onchange="updateAdminOrderStatus('${order.id}', this.value)" class="bg-gray-100 border border-gray-200 rounded-lg p-1.5 text-[11px] font-bold text-gray-700 focus:outline-none">
+                            <option value="Received" ${order.status === 'Received' ? 'selected' : ''}>Received</option>
+                            <option value="Kitchen Prep" ${order.status === 'Kitchen Prep' ? 'selected' : ''}>Kitchen Prep</option>
+                            <option value="Out for Delivery" ${order.status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
+                            <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function updateAdminOrderStatus(orderId, newStatus) {
+            const res = await MadamCassAPI.updateStatus(orderId, newStatus);
+            if (res.success) {
+                showToast(`Order ${orderId} updated to ${newStatus}`);
+                loadAdminOrders();
+            }
+        }
+
+        // Review Modal Functions
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function setFormRating(rating) {
+            const ratingInput = document.getElementById('review-rating-val');
+            if (ratingInput) ratingInput.value = rating;
+
+            const stars = document.querySelectorAll('#star-rating-selector i');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('text-amber-400');
+                    star.classList.remove('text-gray-300');
+                } else {
+                    star.classList.remove('text-amber-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            showToast('Thank you! Your review has been published.');
+            closeReviewModal();
+            e.target.reset();
+            setFormRating(5);
+        }
+
+        // Toast Feedback
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Global Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            MadamCassDB.init();
+            renderMenu(menuItems);
+            updateCartUI();
+            setFormRating(5);
+
+            // Escape key dismisses open modals/drawers
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeCheckoutModal();
+                    closeReviewModal();
+                    closeOrderTracker();
+                    const drawer = document.getElementById('cart-drawer');
+                    if (drawer && !drawer.classList.contains('hidden')) {
+                        drawer.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
