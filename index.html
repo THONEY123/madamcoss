@@ -1213,15 +1213,32 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        function handleCheckoutSubmit(e) {
-            e.preventDefault();
-            const orderId = 'MC-' + Math.floor(100000 + Math.random() * 900000);
-            showToast(`Order ${orderId} placed successfully!`);
-            cart = [];
-            updateCartUI();
-            closeCheckoutModal();
-            e.target.reset();
-        }
+       async function handleCheckoutSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const orderData = {
+        id: 'MC-' + Math.floor(100000 + Math.random() * 900000),
+        items: [...cart],
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        customer: {
+            name: formData.get('name') || document.getElementById('cust-name')?.value || 'Guest',
+            phone: formData.get('phone') || document.getElementById('cust-phone')?.value || 'N/A',
+            address: formData.get('address') || document.getElementById('cust-address')?.value || 'N/A',
+            notes: formData.get('notes') || document.getElementById('cust-notes')?.value || ''
+        },
+        timestamp: new Date().toISOString()
+    };
+
+    // Send the order to your live Render backend server!
+    await MadamCassAPI.placeOrder(orderData);
+
+    showToast(`Order ${orderData.id} placed successfully!`);
+    cart = [];
+    updateCartUI();
+    closeCheckoutModal();
+    e.target.reset();
+}
 
         function handleContactSubmit(e) {
             e.preventDefault();
