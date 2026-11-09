@@ -1,12 +1,17 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('MadamCass API is running live on Render!');
+// Serve the website from the same origin as the API. Express will serve
+// index.html for GET / and static assets from the repository directory.
+app.use(express.static(__dirname));
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', message: 'MadamCass API is running!' });
 });
 
 app.post('/api/orders', (req, res) => {
