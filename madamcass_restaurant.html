@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MadamCass - Authentic Nigerian Cuisine & Bakery</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#990000',
+                            darkred: '#700000',
+                            gold: '#D4AF37',
+                            lightgold: '#F4E8C1',
+                            cream: '#FAF7F2',
+                            charcoal: '#1A1A1A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAF7F2; color: #1A1A1A; }
+        .font-serif-heading { font-family: 'Playfair Display', serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar hiding helper */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen antialiased">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-darkred text-amber-200 text-xs md:text-sm py-2 px-4 text-center font-medium flex justify-between items-center">
+        <div class="hidden sm:block">📍 Celebrating 40+ Years of Rich Nigerian Culinary Excellence!</div>
+        <div class="mx-auto sm:mx-0 flex items-center gap-4">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-phone text-brand-gold"></i> +234 800 MADAM CASS</span>
+            <span class="hidden md:inline">|</span>
+            <span class="hidden md:inline flex items-center gap-1.5"><i class="fa-regular fa-clock text-brand-gold"></i> Open Daily: 7:30 AM - 10:00 PM</span>
+        </div>
+        <div class="hidden md:flex gap-3 text-xs">
+            <a href="#" class="hover:text-white transition" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="hover:text-white transition" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="hover:text-white transition" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-md border-b border-amber-100 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo & Badge -->
+                <a href="#" onclick="switchTab('home')" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-amber-300 font-serif-heading font-bold text-2xl shadow-md border-2 border-brand-gold group-hover:scale-105 transition transform">
+                        MC
+                    </div>
+                    <div>
+                        <span class="font-serif-heading text-2xl font-bold text-brand-red tracking-tight block leading-none">MadamCass</span>
+                        <span class="text-[10px] uppercase tracking-widest text-brand-gold font-bold">Home of Good Taste</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2 font-medium text-gray-700">
+                    <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition font-semibold text-brand-red">Home</button>
+                    <button onclick="switchTab('about')" id="nav-about" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">About Us</button>
+                    <button onclick="switchTab('services')" id="nav-services" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Services</button>
+                    <button onclick="switchTab('menu')" id="nav-menu" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Menu & Order</button>
+                    <button onclick="switchTab('reviews')" id="nav-reviews" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Reviews</button>
+                    <button onclick="switchTab('outlets')" id="nav-outlets" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Outlets</button>
+                    <button onclick="switchTab('contact')" id="nav-contact" class="nav-btn px-3 py-2 rounded-lg hover:text-brand-red hover:bg-amber-50 transition">Contact</button>
+                </nav>
+
+                <!-- Header Actions (Cart & Order Button) -->
+                <div class="hidden sm:flex items-center gap-4">
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 text-gray-700 hover:text-brand-red hover:bg-amber-50 rounded-full transition" title="View Cart">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-counter" class="absolute -top-1 -right-1 bg-brand-red text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
+                    </button>
+                    <button onclick="switchTab('menu')" class="bg-brand-red hover:bg-brand-darkred text-white font-semibold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-utensils text-xs"></i>
+                        <span>Order Now</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu & Cart Buttons -->
+                <div class="flex items-center gap-3 md:hidden">
+                    <button onclick="toggleCartDrawer()" class="relative p-2 text-gray-700 hover:text-brand-red">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        <span id="cart-counter-mobile" class="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="p-2 text-gray-700 hover:text-brand-red focus:outline-none">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-2 shadow-lg">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Home</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">About Us</button>
+            <button onclick="switchTab('services'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Services</button>
+            <button onclick="switchTab('menu'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Menu & Online Ordering</button>
+            <button onclick="switchTab('reviews'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Customer Reviews</button>
+            <button onclick="switchTab('outlets'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Our Outlets</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 rounded-md hover:bg-amber-50 font-medium text-gray-800">Contact Us</button>
+            <div class="pt-2">
+                <button onclick="switchTab('menu'); toggleMobileMenu();" class="w-full bg-brand-red text-white font-bold py-3 rounded-lg shadow text-center flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Order Online Now</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN PAGE CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <div id="page-home" class="tab-content active">
+            <!-- Hero Banner -->
+            <section class="relative bg-brand-charcoal text-white overflow-hidden py-16 md:py-24 lg:py-28">
+                <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=1600&q=80');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-0"></div>
+                
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="inline-flex items-center gap-2 bg-brand-gold/20 text-brand-gold border border-brand-gold/40 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase">
+                            ✨ Authentic Nigerian Heritage Since 1983
+                        </span>
+                        <h1 class="font-serif-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                            Taste the Richness of <span class="text-brand-gold">MadamCass</span> Culinary Tradition.
+                        </h1>
+                        <p class="text-gray-300 text-base sm:text-lg max-w-xl">
+                            From our signature Noble Rice to aromatic Ofada and authentic Egusi soup, MadamCass brings warmth, standard, and unforgettable taste to every meal.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="switchTab('menu')" class="bg-brand-red hover:bg-brand-darkred text-white font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-red-900/50 transition transform hover:-translate-y-1 flex items-center gap-3">
+                                <span>Explore Menu & Order</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="switchTab('outlets')" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-4 rounded-full border border-white/30 backdrop-blur-sm transition">
+                                View Locations
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Card -->
+                    <div class="hidden md:block relative">
+                        <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl relative z-10">
+                            <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=800&q=80" alt="Noble Rice Platter" class="rounded-2xl w-full h-72 object-cover mb-4">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="text-brand-gold text-xs font-bold uppercase tracking-wider">House Special</span>
+                                    <h3 class="font-serif-heading text-2xl font-bold text-white">Noble Rice Platter</h3>
+                                    <p class="text-gray-300 text-sm">Served with fried plantains & succulent grilled chicken</p>
+                                </div>
+                                <button onclick="addToCart('Noble Rice', 2500, 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=300&q=80')" class="bg-brand-gold hover:bg-amber-400 text-brand-charcoal font-bold p-3 rounded-full shadow">
+                                    <i class="fa-solid fa-plus text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Bar -->
+            <section class="bg-brand-red text-white py-10 shadow-inner">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">40+</div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Years of Legacy</div>
+                    </div>
+                    <div>
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">15+</div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Outlets Nationwide</div>
+                    </div>
+                    <div>
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">50,000+</div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Meals Served Daily</div>
+                    </div>
+                    <div>
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">100%</div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Fresh & Authentic</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Food Grid -->
+            <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-brand-red font-bold uppercase text-xs tracking-widest">Taste The Best</span>
+                    <h2 class="font-serif-heading text-3xl sm:text-4xl font-bold text-brand-charcoal mt-1">Popular Delicacies</h2>
+                    <div class="w-16 h-1 bg-brand-gold mx-auto my-3 rounded-full"></div>
+                    <p class="text-gray-600">Freshly prepared daily using rich local ingredients and heritage recipes.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Item 1 -->
+                    <div onclick="switchTab('menu')" class="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80" alt="Noble Rice" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full">₦2,500</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-serif-heading font-bold text-lg text-gray-900">Noble Rice</h3>
+                            <p class="text-gray-500 text-xs mt-1">Jollof rice with plantains & grilled chicken</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div onclick="switchTab('menu')" class="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281862?auto=format&fit=crop&w=600&q=80" alt="Suya Spaghetti" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full">₦3,500</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-serif-heading font-bold text-lg text-gray-900">Suya Spaghetti</h3>
+                            <p class="text-gray-500 text-xs mt-1">Spicy grilled beef suya infused pasta</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div onclick="switchTab('menu')" class="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80" alt="Ofada Rice & Ayamase" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full">₦4,500</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-serif-heading font-bold text-lg text-gray-900">Ofada Rice & Ayamase</h3>
+                            <p class="text-gray-500 text-xs mt-1">Unpolished rice with green pepper stew</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div onclick="switchTab('menu')" class="group cursor-pointer bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition transform hover:-translate-y-1 border border-gray-100">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80" alt="Pounded Yam & Egusi" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <span class="absolute top-3 left-3 bg-brand-red text-white text-xs font-bold px-2.5 py-1 rounded-full">₦4,200</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-serif-heading font-bold text-lg text-gray-900">Pounded Yam & Egusi</h3>
+                            <p class="text-gray-500 text-xs mt-1">Smooth pounded yam with goat meat Egusi</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Snapshot Banner -->
+            <section class="bg-amber-50/70 border-y border-amber-100 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
+                        <div>
+                            <span class="text-brand-red font-bold uppercase text-xs tracking-widest">Customer Feedback</span>
+                            <h2 class="font-serif-heading text-3xl font-bold text-brand-charcoal mt-1">Loved Across Nigeria</h2>
+                            <p class="text-gray-600 text-sm mt-1">Over 1,200+ 5-star ratings from food lovers in Lagos & Abuja.</p>
+                        </div>
+                        <button onclick="switchTab('reviews')" class="bg-brand-red hover:bg-brand-darkred text-white font-bold px-6 py-3 rounded-full text-sm shadow transition flex items-center gap-2">
+                            <span>Read All Reviews</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-100 flex flex-col justify-between space-y-4">
+                            <div class="space-y-2">
+                                <div class="flex text-amber-400 text-sm gap-1">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic">"The Asun Rice at the Victoria Island branch is unmatched! Generous portions, authentic spice level, and fast delivery."</p>
+                            </div>
+                            <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
+                                <div class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center text-sm">OA</div>
+                                <div>
+                                    <h4 class="font-bold text-xs text-gray-900">Oluwaseun Adeyemi</h4>
+                                    <span class="text-[10px] text-gray-500">Verified Buyer • Victoria Island</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-100 flex flex-col justify-between space-y-4">
+                            <div class="space-y-2">
+                                <div class="flex text-amber-400 text-sm gap-1">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic">"MadamCass has been my family's Sunday dining stop for over 15 years. Their Ofada Rice sauce is legendary."</p>
+                            </div>
+                            <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
+                                <div class="w-10 h-10 bg-brand-gold text-brand-charcoal font-bold rounded-full flex items-center justify-center text-sm">CO</div>
+                                <div>
+                                    <h4 class="font-bold text-xs text-gray-900">Chiege Okonkwo</h4>
+                                    <span class="text-[10px] text-gray-500">Verified Buyer • Ikeja GRA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-amber-100 flex flex-col justify-between space-y-4">
+                            <div class="space-y-2">
+                                <div class="flex text-amber-400 text-sm gap-1">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic">"Ordered corporate lunch platters for our 40-person tech workshop. On time, hot, and everyone raved about the Suya Spaghetti."</p>
+                            </div>
+                            <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
+                                <div class="w-10 h-10 bg-emerald-700 text-white font-bold rounded-full flex items-center justify-center text-sm">FA</div>
+                                <div>
+                                    <h4 class="font-bold text-xs text-gray-900">Farouq Aliyu</h4>
+                                    <span class="text-[10px] text-gray-500">Verified Buyer • Wuse 2, Abuja</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ================= PAGE 2: ABOUT US ================= -->
+        <div id="page-about" class="tab-content">
+            <div class="bg-brand-red text-white py-16 px-4 text-center">
+                <h1 class="font-serif-heading text-4xl sm:text-5xl font-bold">Our Rich Heritage</h1>
+                <p class="text-amber-100 mt-2 text-lg">Four Decades of Passionate Culinary Service</p>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-4 py-16 space-y-16">
+                <!-- Story Section -->
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-4">
+                        <span class="text-brand-red font-bold uppercase tracking-wider text-xs">Since 1983</span>
+                        <h2 class="font-serif-heading text-3xl font-bold text-gray-900">The MadamCass Legacy</h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            MadamCass Restaurant was established with a clear mandate: to bring home-style cooking and premium Nigerian dining into clean, vibrant, accessible spaces across the nation.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed">
+                            Over the last 40 years, we have pioneered restaurant standards, created iconic dishes such as our celebrated Noble Rice and traditional Ofada delicacies, and built an enduring brand loved by generations.
+                        </p>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="MadamCass Kitchen & Heritage" class="rounded-3xl shadow-xl w-full object-cover h-96">
+                    </div>
+                </div>
+
+                <!-- Values Grid -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl border-t-4 border-brand-red shadow-sm">
+                        <div class="w-12 h-12 bg-red-100 text-brand-red rounded-xl flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <h3 class="font-serif-heading text-xl font-bold text-gray-900 mb-2">Authentic Recipes</h3>
+                        <p class="text-gray-600 text-sm">We preserve traditional cooking techniques using authentic spices and fresh local produce.</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border-t-4 border-brand-gold shadow-sm">
+                        <div class="w-12 h-12 bg-amber-100 text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="font-serif-heading text-xl font-bold text-gray-900 mb-2">Uncompromised Quality</h3>
+                        <p class="text-gray-600 text-sm">Hygienic kitchen spaces and strict safety protocols ensure every meal is nutritious and safe.</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl border-t-4 border-brand-red shadow-sm">
+                        <div class="w-12 h-12 bg-red-100 text-brand-red rounded-xl flex items-center justify-center text-2xl mb-4">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3 class="font-serif-heading text-xl font-bold text-gray-900 mb-2">Warm Hospitality</h3>
+                        <p class="text-gray-600 text-sm">Treating every guest like family with attentive service and comfortable dining environments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 3: SERVICES ================= -->
+        <div id="page-services" class="tab-content">
+            <div class="bg-brand-charcoal text-white py-16 px-4 text-center">
+                <h1 class="font-serif-heading text-4xl sm:text-5xl font-bold">Our Services</h1>
+                <p class="text-gray-300 mt-2 text-lg">Tailored Food & Catering Solutions</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1: Dine-In -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Dine-In Restaurant" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif-heading text-xl font-bold mb-2">Dine-In Comfort</h3>
+                            <p class="text-gray-600 text-sm">Modern, air-conditioned dining areas with high-speed internet, family seating, and friendly service.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="switchTab('outlets')" class="w-full bg-brand-cream hover:bg-amber-100 text-brand-red font-semibold py-2.5 rounded-xl text-sm transition">Find Nearest Restaurant</button>
+                    </div>
+                </div>
+
+                <!-- Service 2: Outdoor Catering -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=600&q=80" alt="Outdoor Catering" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif-heading text-xl font-bold mb-2">Outdoor Catering</h3>
+                            <p class="text-gray-600 text-sm">Full buffet and banquet catering for weddings, birthdays, corporate retreats, and celebrations.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="switchTab('contact')" class="w-full bg-brand-cream hover:bg-amber-100 text-brand-red font-semibold py-2.5 rounded-xl text-sm transition">Book Event Catering</button>
+                    </div>
+                </div>
+
+                <!-- Service 3: Doorstep Delivery -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=600&q=80" alt="Doorstep Delivery" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif-heading text-xl font-bold mb-2">Doorstep Delivery</h3>
+                            <p class="text-gray-600 text-sm">Fresh meals delivered fast to your home or office in spill-proof eco thermal packaging.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="switchTab('menu')" class="w-full bg-brand-red text-white hover:bg-brand-darkred font-semibold py-2.5 rounded-xl text-sm transition">Order Online</button>
+                    </div>
+                </div>
+
+                <!-- Service 4: Corporate Services -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&q=80" alt="Corporate Lunch Platters" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-serif-heading text-xl font-bold mb-2">Corporate Services</h3>
+                            <p class="text-gray-600 text-sm">Scheduled staff lunch plans, executive boardroom lunch boxes, and official event catering.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="switchTab('contact')" class="w-full bg-brand-cream hover:bg-amber-100 text-brand-red font-semibold py-2.5 rounded-xl text-sm transition">Inquire Corporate Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 4: MENU & ONLINE ORDERING ================= -->
+        <div id="page-menu" class="tab-content">
+            <div class="bg-brand-red text-white py-14 px-4 text-center">
+                <span class="text-brand-gold text-xs font-bold uppercase tracking-widest bg-brand-darkred px-3 py-1 rounded-full border border-amber-300/30">Fresh Daily</span>
+                <h1 class="font-serif-heading text-4xl sm:text-5xl font-bold mt-2">Menu & Online Ordering</h1>
+                <p class="text-amber-100 mt-2 text-sm sm:text-base max-w-xl mx-auto">Select your favorite Nigerian dishes, pastries, and beverages for swift delivery or pickup.</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-10">
+                <!-- Search & Category Filters Bar -->
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 mb-8 space-y-4 md:space-y-0 md:flex md:items-center md:justify-between gap-6">
+                    <!-- Instant Menu Search -->
+                    <div class="relative flex-grow max-w-md">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="menu-search-input" onkeyup="handleMenuSearch(event)" placeholder="Search Jollof, Ofada, Egusi, Meat Pie..." class="w-full pl-11 pr-4 py-3 rounded-2xl bg-gray-50 border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/40 focus:bg-white transition">
+                    </div>
+
+                    <!-- Filter Chips -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+                        <button onclick="filterMenu('all', event)" class="cat-btn bg-brand-red text-white px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition shadow-xs">All Dishes</button>
+                        <button onclick="filterMenu('rice', event)" class="cat-btn bg-white text-gray-700 hover:bg-amber-50 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition border border-gray-200">Rice & Mains</button>
+                        <button onclick="filterMenu('swallow', event)" class="cat-btn bg-white text-gray-700 hover:bg-amber-50 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition border border-gray-200">Soups & Swallow</button>
+                        <button onclick="filterMenu('pasta', event)" class="cat-btn bg-white text-gray-700 hover:bg-amber-50 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition border border-gray-200">Pastas & Bakery</button>
+                        <button onclick="filterMenu('drinks', event)" class="cat-btn bg-white text-gray-700 hover:bg-amber-50 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition border border-gray-200">Chilled Drinks</button>
+                    </div>
+                </div>
+
+                <!-- Menu Item Grid -->
+                <div id="menu-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic rendering by JS -->
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 5: CUSTOMER REVIEWS ================= -->
+        <div id="page-reviews" class="tab-content">
+            <div class="bg-brand-red text-white py-14 px-4 text-center">
+                <span class="text-brand-gold text-xs font-bold uppercase tracking-widest bg-brand-darkred px-3 py-1 rounded-full border border-amber-300/30">Guest Experiences</span>
+                <h1 class="font-serif-heading text-4xl sm:text-5xl font-bold mt-2">Customer Reviews & Ratings</h1>
+                <p class="text-amber-100 mt-2 text-sm sm:text-base max-w-xl mx-auto">Discover why thousands of Nigerians in Lagos and Abuja rely on MadamCass for authentic home-cooked flavors.</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <!-- Reviews Summary Bar -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mb-10 grid md:grid-cols-3 gap-8 items-center">
+                    <div class="text-center md:text-left md:border-r border-gray-100 md:pr-8">
+                        <div class="font-serif-heading text-5xl font-bold text-gray-900">4.9<span class="text-2xl text-gray-400">/5</span></div>
+                        <div class="flex justify-center md:justify-start text-amber-400 text-lg gap-1 my-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-xs text-gray-500 font-medium">Based on 1,240+ verified guest reviews</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs font-medium text-gray-600">
+                        <div class="flex items-center gap-3">
+                            <span>5 Stars</span>
+                            <div class="flex-grow bg-gray-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-amber-400 h-full rounded-full" style="width: 88%"></div>
+                            </div>
+                            <span>88%</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span>4 Stars</span>
+                            <div class="flex-grow bg-gray-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-amber-400 h-full rounded-full" style="width: 9%"></div>
+                            </div>
+                            <span>9%</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span>3 Stars</span>
+                            <div class="flex-grow bg-gray-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-amber-400 h-full rounded-full" style="width: 2%"></div>
+                            </div>
+                            <span>2%</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center md:text-right">
+                        <button onclick="openReviewModal()" class="w-full md:w-auto bg-brand-red hover:bg-brand-darkred text-white font-bold px-7 py-3.5 rounded-2xl shadow-md transition flex items-center justify-center gap-2.5 mx-auto md:ml-auto">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            <span>Write a Review</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Reviews Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="reviews-list">
+                    <!-- Review Card 1 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div class="flex text-amber-400 text-sm gap-1">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-400 bg-gray-50 px-2 py-1 rounded-md">2 days ago</span>
+                            </div>
+                            <h4 class="font-serif-heading font-bold text-gray-900">Unmatched Asun Rice in Victoria Island</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">"The Asun Rice combo is completely top notch. Spicy goat meat cut perfectly, smoky flavor throughout, and generous plantain portions. MadamCass VI branch never fails!"</p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-3 border-t border-gray-100">
+                            <div class="w-10 h-10 bg-brand-red text-white font-bold rounded-full flex items-center justify-center text-sm">OA</div>
+                            <div>
+                                <h5 class="font-bold text-xs text-gray-900">Oluwaseun Adeyemi</h5>
+                                <span class="text-[10px] text-gray-500 flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600"></i> Verified Buyer • VI Branch</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Card 2 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div class="flex text-amber-400 text-sm gap-1">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-400 bg-gray-50 px-2 py-1 rounded-md">1 week ago</span>
+                            </div>
+                            <h4 class="font-serif-heading font-bold text-gray-900">Best Ofada Sauce in Lagos hands down</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">"MadamCass has been our Sunday post-church tradition for over 15 years. The Ayamase green pepper sauce with boiled eggs and soft unpolished rice is purely nostalgic."</p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-3 border-t border-gray-100">
+                            <div class="w-10 h-10 bg-brand-gold text-brand-charcoal font-bold rounded-full flex items-center justify-center text-sm">CO</div>
+                            <div>
+                                <h5 class="font-bold text-xs text-gray-900">Chiege Okonkwo</h5>
+                                <span class="text-[10px] text-gray-500 flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600"></i> Verified Buyer • Ikeja GRA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Review Card 3 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div class="flex text-amber-400 text-sm gap-1">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-400 bg-gray-50 px-2 py-1 rounded-md">2 weeks ago</span>
+                            </div>
+                            <h4 class="font-serif-heading font-bold text-gray-900">Excellent Corporate Lunch Order</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">"Ordered 40 packages of Suya Spaghetti and cold Zobo for our corporate conference in Wuse 2. Delivered right on schedule, piping hot, and beautifully packed."</p>
+                        </div>
+                        <div class="flex items-center gap-3 pt-3 border-t border-gray-100">
+                            <div class="w-10 h-10 bg-emerald-700 text-white font-bold rounded-full flex items-center justify-center text-sm">FA</div>
+                            <div>
+                                <h5 class="font-bold text-xs text-gray-900">Farouq Aliyu</h5>
+                                <span class="text-[10px] text-gray-500 flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600"></i> Verified Buyer • Abuja</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 6: OUTLETS / LOCATIONS ================= -->
+        <div id="page-outlets" class="tab-content">
+            <div class="bg-brand-charcoal text-white py-12 px-4 text-center">
+                <h1 class="font-serif-heading text-4xl font-bold">Our Outlets</h1>
+                <p class="text-gray-300 mt-2">Find a MadamCass restaurant location near you</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Victoria Island Outlet -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition">
+                        <div class="h-52 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="Victoria Island Outlet" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Open Now</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif-heading text-xl font-bold text-gray-900">Victoria Island Outlet</h3>
+                            <p class="text-gray-600 text-sm flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-brand-red mt-1"></i>
+                                <span>123 Ahmadu Bello Way, Victoria Island, Lagos</span>
+                            </p>
+                            <p class="text-gray-600 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-brand-gold"></i>
+                                <span>+234 801 234 5678</span>
+                            </p>
+                            <p class="text-gray-500 text-xs flex items-center gap-2">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>Mon - Sun: 7:30 AM - 10:00 PM</span>
+                            </p>
+                            <a href="https://maps.google.com" target="_blank" class="block w-full text-center bg-gray-100 hover:bg-amber-100 text-brand-red font-semibold py-2.5 rounded-xl text-sm transition mt-2">Get Directions</a>
+                        </div>
+                    </div>
+
+                    <!-- Ikeja Outlet -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition">
+                        <div class="h-52 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=600&q=80" alt="Ikeja Outlet" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Open Now</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif-heading text-xl font-bold text-gray-900">Ikeja Outlet</h3>
+                            <p class="text-gray-600 text-sm flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-brand-red mt-1"></i>
+                                <span>45 Isaac John Street, Ikeja GRA, Lagos</span>
+                            </p>
+                            <p class="text-gray-600 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-brand-gold"></i>
+                                <span>+234 802 345 6789</span>
+                            </p>
+                            <p class="text-gray-500 text-xs flex items-center gap-2">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>Mon - Sun: 7:30 AM - 10:00 PM</span>
+                            </p>
+                            <a href="https://maps.google.com" target="_blank" class="block w-full text-center bg-gray-100 hover:bg-amber-100 text-brand-red font-semibold py-2.5 rounded-xl text-sm transition mt-2">Get Directions</a>
+                        </div>
+                    </div>
+
+                    <!-- Abuja Outlet -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition">
+                        <div class="h-52 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80" alt="Abuja Outlet" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Open Now</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="font-serif-heading text-xl font-bold text-gray-900">Abuja Outlet</h3>
+                            <p class="text-gray-600 text-sm flex items-start gap-2">
+                                <i class="fa-solid fa-location-dot text-brand-red mt-1"></i>
+                                <span>Plot 88 Maraba Highway / Wuse 2, Abuja</span>
+                            </p>
+                            <p class="text-gray-600 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-brand-gold"></i>
+                                <span>+234 803 456 7890</span>
+                            </p>
+                            <p class="text-gray-500 text-xs flex items-center gap-2">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>Mon - Sun: 8:00 AM - 9:30 PM</span>
+                            </p>
+                            <a href="https://maps.google.com" target="_blank" class="block w-full text-center bg-gray-100 hover:bg-amber-100 text-brand-red font-semibold py-2.5 rounded-xl text-sm transition mt-2">Get Directions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 7: CONTACT US ================= -->
+        <div id="page-contact" class="tab-content">
+            <div class="bg-brand-red text-white py-14 px-4 text-center">
+                <span class="text-brand-gold text-xs font-bold uppercase tracking-widest bg-brand-darkred px-3 py-1 rounded-full border border-amber-300/30">We'd Love To Hear From You</span>
+                <h1 class="font-serif-heading text-4xl sm:text-5xl font-bold mt-2">Get In Touch</h1>
+                <p class="text-amber-100 mt-2 text-sm sm:text-base max-w-xl mx-auto">Have questions about catering, group reservations, or feedback? Send us a message.</p>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12 grid lg:grid-cols-12 gap-10">
+                <!-- Contact Info Cards -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 space-y-4">
+                        <div class="w-12 h-12 bg-red-100 text-brand-red rounded-2xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="font-serif-heading text-xl font-bold text-gray-900">Direct Customer Support</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">Our support desk is active every day to assist with order status and catering requests.</p>
+                        <div class="space-y-2 text-sm font-medium text-gray-800 pt-2 border-t border-gray-100">
+                            <p class="flex items-center gap-3"><i class="fa-solid fa-phone text-brand-red"></i> +234 704 100 0770</p>
+                            <p class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-emerald-600"></i> +234 807 449 0009</p>
+                            <p class="flex items-center gap-3"><i class="fa-regular fa-envelope text-brand-gold"></i> orders@madamcassng.com</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 space-y-4">
+                        <div class="w-12 h-12 bg-amber-100 text-brand-gold rounded-2xl flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-building flex text-brand-gold"></i>
+                        </div>
+                        <h3 class="font-serif-heading text-xl font-bold text-gray-900">Head Office</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed">4A, Oyeleke Street, Oregun / Alausa, Ikeja, Lagos State, Nigeria.</p>
+                        <div class="text-xs text-gray-500 pt-2 border-t border-gray-100">
+                            <p class="font-semibold text-gray-700">Opening Hours:</p>
+                            <p>Monday – Friday: 7:00 AM – 10:00 PM</p>
+                            <p>Saturday – Sunday: 8:00 AM – 10:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl shadow-sm border border-gray-100">
+                    <h3 class="font-serif-heading text-2xl font-bold text-gray-900 mb-2">Send Us a Message</h3>
+                    <p class="text-gray-500 text-xs mb-6">Fill out the form below and our hospitality team will respond within 2 hours.</p>
+
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-5">
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Full Name *</label>
+                                <input type="text" required placeholder="e.g. Babatunde Fashola" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Phone Number *</label>
+                                <input type="tel" required placeholder="08012345678" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Email Address</label>
+                            <input type="email" placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Subject / Inquiry Type</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm bg-white">
+                                <option>General Inquiry</option>
+                                <option>Event & Outdoor Catering</option>
+                                <option>Corporate Lunch Account</option>
+                                <option>Feedback or Complaint</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Message *</label>
+                            <textarea rows="4" required placeholder="Write your message here..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-red hover:bg-brand-darkred text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true">
+        <div onclick="closeCheckoutModal()" class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"></div>
+        <div class="min-h-screen px-4 text-center flex items-center justify-center p-4">
+            <div class="relative bg-white rounded-3xl max-w-lg w-full p-8 text-left shadow-2xl overflow-hidden transform transition-all my-8 z-10 border border-gray-100">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                    <h3 class="font-serif-heading text-2xl font-bold text-gray-900">Complete Your Order</h3>
+                    <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                </div>
+
+                <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Full Name *</label>
+                        <input type="text" required placeholder="e.g. Sandra Eke" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Phone Number *</label>
+                            <input type="tel" required placeholder="080 1234 5678" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Fulfilling Branch</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                                <option>Victoria Island, Lagos</option>
+                                <option>Ikeja GRA, Lagos</option>
+                                <option>Wuse 2, Abuja</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Delivery Address *</label>
+                        <textarea rows="2" required placeholder="Enter street address, building number & landmark..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red/50"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-1">Payment Method</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand-red/50">
+                            <option>Pay on Delivery (Cash/POS)</option>
+                            <option>Debit Card / Paystack</option>
+                            <option>Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 flex justify-between items-center text-sm">
+                        <span class="font-semibold text-gray-700">Total Payable Amount:</span>
+                        <span id="checkout-total-val" class="font-serif-heading font-bold text-xl text-brand-red">₦0</span>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-red hover:bg-brand-darkred text-white font-bold py-3.5 rounded-xl shadow-lg transition text-center flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-lock text-sm"></i>
+                        <span>Confirm & Place Order</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOPPING CART SLIDE-OUT DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"></div>
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between">
+                <!-- Drawer Header -->
+                <div class="p-6 bg-brand-red text-white flex items-center justify-between shadow">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-bag-shopping text-2xl text-brand-gold"></i>
+                        <h2 class="font-serif-heading text-xl font-bold">Your Food Order</h2>
+                    </div>
+                    <button onclick="toggleCartDrawer()" class="text-white hover:text-amber-200 text-2xl font-bold">&times;</button>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="cart-items" class="p-6 flex-grow overflow-y-auto space-y-4">
+                    <!-- Dynamic cart items rendered here -->
+                </div>
+
+                <!-- Drawer Footer & Checkout -->
+                <div class="p-6 bg-gray-50 border-t border-gray-200 space-y-4">
+                    <div class="flex justify-between items-center text-gray-800">
+                        <span class="text-sm font-semibold">Subtotal</span>
+                        <span id="cart-subtotal" class="font-serif-heading font-bold text-xl text-brand-red">₦0</span>
+                    </div>
+                    <p class="text-[11px] text-gray-500">Taxes and delivery fees calculated at checkout.</p>
+                    <button onclick="checkout()" class="w-full bg-brand-red hover:bg-brand-darkred text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span>Proceed to Checkout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WRITE A REVIEW MODAL -->
+    <div id="review-modal" class="fixed inset-0 z-50 overflow-y-auto hidden" role="dialog" aria-modal="true">
+        <div onclick="closeReviewModal()" class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"></div>
+        
+        <div class="min-h-screen px-4 text-center flex items-center justify-center p-4">
+            <div class="relative bg-white rounded-3xl max-w-lg w-full p-8 text-left shadow-2xl overflow-hidden transform transition-all my-8 z-10 border border-gray-100">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                    <h3 class="font-serif-heading text-2xl font-bold text-gray-900">Share Your Experience</h3>
+                    <button onclick="closeReviewModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+                </div>
+
+                <form onsubmit="handleReviewSubmit(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Your Star Rating</label>
+                        <div class="flex gap-2 text-2xl text-gray-300" id="star-rating-selector">
+                            <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition" onclick="setFormRating(1)"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition" onclick="setFormRating(2)"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition" onclick="setFormRating(3)"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition" onclick="setFormRating(4)"></i>
+                            <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition" onclick="setFormRating(5)"></i>
+                        </div>
+                        <input type="hidden" id="review-rating-val" value="5" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Your Name</label>
+                        <input type="text" id="review-name" required placeholder="e.g. Dr. Kemi Balogun" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm">
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Outlet Visited</label>
+                            <select id="review-branch" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm bg-white">
+                                <option>Victoria Island, Lagos</option>
+                                <option>Ikeja GRA, Lagos</option>
+                                <option>Wuse 2, Abuja</option>
+                                <option>Online Delivery Order</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Favorite Dish</label>
+                            <input type="text" id="review-dish" placeholder="e.g. Asun Rice" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-500 mb-2">Your Review</label>
+                        <textarea id="review-comment" rows="4" required placeholder="Tell us about the taste, portion sizes, service, or delivery..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-red/50 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-red hover:bg-brand-darkred text-white font-bold py-3.5 rounded-xl shadow transition text-center">
+                        Publish Review
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-charcoal text-white px-6 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 border border-gray-700">
+        <i class="fa-solid fa-circle-check text-green-400 text-xl"></i>
+        <span id="toast-message" class="text-sm font-medium">Item added to cart!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-charcoal text-white border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Brand Column -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-red rounded-full flex items-center justify-center text-amber-300 font-serif-heading font-bold border border-brand-gold">MC</div>
+                    <span class="font-serif-heading text-2xl font-bold text-white">MadamCass</span>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Bringing rich, traditional, high-quality Nigerian meals and fresh bakery delicacies to families and businesses nationwide.
+                </p>
+            </div>
+
+            <!-- Links Column -->
+            <div>
+                <h4 class="font-serif-heading text-lg font-bold text-brand-gold mb-4">Quick Navigation</h4>
+                <ul class="space-y-2.5 text-sm text-gray-400">
+                    <li><button onclick="switchTab('home')" class="hover:text-white transition">Home Page</button></li>
+                    <li><button onclick="switchTab('about')" class="hover:text-white transition">About Our Legacy</button></li>
+                    <li><button onclick="switchTab('services')" class="hover:text-white transition">Catering Services</button></li>
+                    <li><button onclick="switchTab('menu')" class="hover:text-white transition">Online Menu & Order</button></li>
+                    <li><button onclick="switchTab('outlets')" class="hover:text-white transition">Restaurant Outlets</button></li>
+                </ul>
+            </div>
+
+            <!-- Outlets Column -->
+            <div>
+                <h4 class="font-serif-heading text-lg font-bold text-brand-gold mb-4">Prime Outlets</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Victoria Island, Lagos</li>
+                    <li><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Ikeja GRA, Lagos</li>
+                    <li><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Wuse 2 / Maraba, Abuja</li>
+                    <li><i class="fa-solid fa-location-dot text-brand-red mr-2"></i>Agege Oko-Oba, Lagos</li>
+                </ul>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div>
+                <h4 class="font-serif-heading text-lg font-bold text-brand-gold mb-4">Newsletter</h4>
+                <p class="text-xs text-gray-400 mb-3">Subscribe for weekend menu updates & promotional discounts.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email..." class="px-3 py-2 text-sm rounded-l-lg bg-gray-800 border border-gray-700 text-white focus:outline-none w-full">
+                    <button onclick="showToast('Subscribed successfully!')" class="bg-brand-red px-4 py-2 text-sm rounded-r-lg font-bold hover:bg-brand-darkred transition">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+            <p>&copy; 1983 - 2026 MadamCass Restaurant & Bakery Nigeria. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- APPLICATION LOGIC JS -->
+    <script>
+        // Data Structures
+        const menuItems = [
+            { id: 1, name: 'Noble Rice Platter', price: 2500, category: 'rice', img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80', desc: 'Signature seasoned rice served with fried plantains and grilled chicken' },
+            { id: 2, name: 'Suya Spaghetti', price: 3500, category: 'pasta', img: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281862?auto=format&fit=crop&w=600&q=80', desc: 'Wok-tossed spaghetti infused with spicy suya steak strips & veggies' },
+            { id: 3, name: 'Ofada Rice & Ayamase Sauce', price: 4500, category: 'rice', img: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80', desc: 'Unpolished local rice with green pepper bleached palm oil sauce, boiled egg, & assorted meat' },
+            { id: 4, name: 'Pounded Yam & Egusi Soup', price: 4200, category: 'swallow', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80', desc: 'Smooth, fluffy pounded yam served with rich goat meat melon seed soup' },
+            { id: 5, name: 'Asun Rice Combo', price: 4000, category: 'rice', img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80', desc: 'Spicy peppered goat meat diced over fragrant smokey Jollof rice' },
+            { id: 6, name: 'Traditional Moi Moi', price: 1000, category: 'pasta', img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80', desc: 'Steamed bean pudding made with boiled eggs & flaked fish' },
+            { id: 7, name: 'Chilled Zobo Drink', price: 800, category: 'drinks', img: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=600&q=80', desc: 'Refreshingly ice-chilled natural hibiscus blossom brew with ginger & pineapple' },
+            { id: 8, name: 'MadamCass Meat Pie (2 Pcs)', price: 1500, category: 'pasta', img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80', desc: 'Golden flaky pastry filled with minced beef, potatoes, and spices' }
+        ];
+
+        let cart = [];
+
+        // Tab Navigation
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            const selectedTab = document.getElementById(`page-${tabId}`);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-brand-red', 'bg-amber-50', 'font-semibold');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('text-brand-red', 'bg-amber-50', 'font-semibold');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-xmark');
+                }
+            }
+        }
+
+        // Menu Search & Filter
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-grid');
+            if (!grid) return;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-gray-500">
+                        <i class="fa-solid fa-utensils text-4xl mb-3 text-gray-300"></i>
+                        <p class="font-medium">No dishes match your search query.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = items.map(item => `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition flex flex-col justify-between border border-gray-100">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 right-3 bg-brand-red text-white text-xs font-bold px-3 py-1 rounded-full shadow">₦${item.price.toLocaleString()}</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-serif-heading font-bold text-lg text-gray-900">${item.name}</h3>
+                            <p class="text-gray-500 text-xs mt-2 leading-relaxed">${item.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="addToCart('${item.name.replace(/'/g, "\\'")}', ${item.price}, '${item.img}')" class="w-full bg-amber-50 hover:bg-brand-red text-brand-red hover:text-white font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm border border-amber-200">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>Add to Bag</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterMenu(category, event) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-red', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-700');
+            });
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.remove('bg-white', 'text-gray-700');
+                event.currentTarget.classList.add('bg-brand-red', 'text-white');
+            }
+
+            if (category === 'all') {
+                renderMenu(menuItems);
+            } else {
+                const filtered = menuItems.filter(item => item.category === category);
+                renderMenu(filtered);
+            }
+        }
+
+        function handleMenuSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+                renderMenu(menuItems);
+                return;
+            }
+            const filtered = menuItems.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.desc.toLowerCase().includes(query)
+            );
+            renderMenu(filtered);
+        }
+
+        // Cart Actions
+        function addToCart(name, price, img) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, img, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`Added ${name} to your bag!`);
+        }
+
+        function updateCartQty(name, delta) {
+            const itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += delta;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            const counterDesktop = document.getElementById('cart-counter');
+            if (counterDesktop) counterDesktop.innerText = totalCount;
+
+            const counterMobile = document.getElementById('cart-counter-mobile');
+            if (counterMobile) counterMobile.innerText = totalCount;
+
+            const cartContainer = document.getElementById('cart-items');
+            if (cartContainer) {
+                if (cart.length === 0) {
+                    cartContainer.innerHTML = `
+                        <div class="text-center py-16 text-gray-400">
+                            <i class="fa-solid fa-basket-shopping text-5xl mb-3"></i>
+                            <p class="text-sm font-medium">Your order bag is currently empty.</p>
+                            <button onclick="switchTab('menu'); toggleCartDrawer();" class="mt-4 inline-block text-xs font-bold text-brand-red underline">Browse Menu</button>
+                        </div>
+                    `;
+                } else {
+                    cartContainer.innerHTML = cart.map(item => `
+                        <div class="flex items-center gap-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                            <img src="${item.img}" class="w-14 h-14 object-cover rounded-lg shrink-0">
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-xs text-gray-900">${item.name}</h4>
+                                <span class="text-xs text-brand-red font-semibold">₦${(item.price * item.qty).toLocaleString()}</span>
+                            </div>
+                            <div class="flex items-center border border-gray-300 rounded-lg bg-white">
+                                <button onclick="updateCartQty('${item.name.replace(/'/g, "\\'")}', -1)" class="px-2.5 py-1 text-gray-600 hover:bg-gray-100 text-xs font-bold">-</button>
+                                <span class="px-2 text-xs font-bold text-gray-800">${item.qty}</span>
+                                <button onclick="updateCartQty('${item.name.replace(/'/g, "\\'")}', 1)" class="px-2.5 py-1 text-gray-600 hover:bg-gray-100 text-xs font-bold">+</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            const subtotalElem = document.getElementById('cart-subtotal');
+            if (subtotalElem) {
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                subtotalElem.innerText = `₦${subtotal.toLocaleString()}`;
+            }
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            if (drawer) {
+                drawer.classList.toggle('hidden');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Your order bag is empty!');
+                return;
+            }
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const totalValElem = document.getElementById('checkout-total-val');
+            if (totalValElem) totalValElem.innerText = `₦${subtotal.toLocaleString()}`;
+
+            toggleCartDrawer();
+            const modal = document.getElementById('checkout-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            const orderId = 'MC-' + Math.floor(100000 + Math.random() * 900000);
+            showToast(`Order ${orderId} placed successfully!`);
+            cart = [];
+            updateCartUI();
+            closeCheckoutModal();
+            e.target.reset();
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast('Thank you! Message sent to MadamCass team.');
+            e.target.reset();
+        }
+
+        // Review Modal Functions
+        function openReviewModal() {
+            const modal = document.getElementById('review-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function setFormRating(rating) {
+            const ratingInput = document.getElementById('review-rating-val');
+            if (ratingInput) ratingInput.value = rating;
+
+            const stars = document.querySelectorAll('#star-rating-selector i');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('text-amber-400');
+                    star.classList.remove('text-gray-300');
+                } else {
+                    star.classList.remove('text-amber-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            showToast('Thank you! Your review has been published.');
+            closeReviewModal();
+            e.target.reset();
+            setFormRating(5);
+        }
+
+        // Toast Feedback
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.innerText = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Global Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMenu(menuItems);
+            updateCartUI();
+            setFormRating(5);
+
+            // Escape key dismisses open modals/drawers
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeCheckoutModal();
+                    closeReviewModal();
+                    const drawer = document.getElementById('cart-drawer');
+                    if (drawer && !drawer.classList.contains('hidden')) {
+                        drawer.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
