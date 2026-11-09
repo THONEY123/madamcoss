@@ -1279,9 +1279,31 @@
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
+// Live Backend API Integration
+const BACKEND_URL = 'https://madamcoss-1.onrender.com';
 
-        // Global Initialization
-        window.addEventListener('DOMContentLoaded', () => {
+const MadamCassAPI = {
+    async placeOrder(orderData) {
+        try {
+            const localOrder = MadamCassDB.saveOrder(orderData);
+            const response = await fetch(`${BACKEND_URL}/api/orders`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            });
+            if (!response.ok) throw new Error('Render API returned error status');
+            const serverData = await response.json();
+            console.log('Order saved to Render server:', serverData);
+            return { success: true, order: localOrder };
+        } catch (err) {
+            console.warn('Render server fallback to local storage:', err);
+            return { success: true, order: MadamCassDB.saveOrder(orderData) };
+        }
+    }
+};
+
+// Global Initialization
+window.addEventListener('DOMContentLoaded', () => {
             renderMenu(menuItems);
             updateCartUI();
             setFormRating(5);
