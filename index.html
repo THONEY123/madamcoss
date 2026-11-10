@@ -185,25 +185,38 @@
                 </div>
             </section>
 
-            <!-- Stats Bar -->
-            <section class="bg-brand-red text-white py-10 shadow-inner">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                    <div>
-                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">40+</div>
-                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Years of Legacy</div>
+            <!-- Stats Bar with Animated Counter & Hover Effects -->
+            <section class="bg-brand-red text-white py-12 shadow-inner relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center relative z-10">
+                    
+                    <div class="p-4 rounded-2xl transform transition duration-300 hover:scale-105 hover:bg-white/5">
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">
+                            <span class="counter" data-target="40">0</span>+
+                        </div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1 font-semibold">Years of Legacy</div>
                     </div>
-                    <div>
-                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">15+</div>
-                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Outlets Nationwide</div>
+
+                    <div class="p-4 rounded-2xl transform transition duration-300 hover:scale-105 hover:bg-white/5">
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">
+                            <span class="counter" data-target="15">0</span>+
+                        </div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1 font-semibold">Outlets Nationwide</div>
                     </div>
-                    <div>
-                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">50,000+</div>
-                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Meals Served Daily</div>
+
+                    <div class="p-4 rounded-2xl transform transition duration-300 hover:scale-105 hover:bg-white/5">
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">
+                            <span class="counter" data-target="50000">0</span>+
+                        </div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1 font-semibold">Meals Served Daily</div>
                     </div>
-                    <div>
-                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">100%</div>
-                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1">Fresh & Authentic</div>
+
+                    <div class="p-4 rounded-2xl transform transition duration-300 hover:scale-105 hover:bg-white/5">
+                        <div class="font-serif-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-gold">
+                            <span class="counter" data-target="100">0</span>%
+                        </div>
+                        <div class="text-xs sm:text-sm text-amber-100 uppercase tracking-wider mt-1 font-semibold">Fresh & Authentic</div>
                     </div>
+
                 </div>
             </section>
 
@@ -1322,6 +1335,40 @@
             setFormRating(5);
         }
 
+        // Animated Number Counter on Scroll
+        function initCounters() {
+            const counters = document.querySelectorAll('.counter');
+            let animated = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+                        counters.forEach(counter => {
+                            const target = +counter.getAttribute('data-target');
+                            const duration = 2000;
+                            const increment = Math.ceil(target / (duration / 16));
+
+                            let current = 0;
+                            const updateCount = () => {
+                                current += increment;
+                                if (current < target) {
+                                    counter.innerText = current.toLocaleString();
+                                    requestAnimationFrame(updateCount);
+                                } else {
+                                    counter.innerText = target.toLocaleString();
+                                }
+                            };
+                            updateCount();
+                        });
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            const statsSection = document.querySelector('.counter')?.closest('section');
+            if (statsSection) observer.observe(statsSection);
+        }
+
         // Toast Feedback
         function showToast(msg) {
             const toast = document.getElementById('toast');
@@ -1343,6 +1390,7 @@
             renderMenu(menuItems);
             updateCartUI();
             setFormRating(5);
+            initCounters();
 
             // Escape key dismisses open modals/drawers
             window.addEventListener('keydown', (e) => {
